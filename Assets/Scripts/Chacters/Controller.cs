@@ -77,7 +77,7 @@ public class Controller : MonoBehaviour
         switch (hit.gameObject.tag)
         {
             case "Jumper":
-                jumpforce = 40f;
+                jumpforce = 30f;            
                 break;
             case "Ground":
                 jumpforce = 10f;
@@ -137,6 +137,7 @@ public class Controller : MonoBehaviour
 
         }
     }
+
 
 
 

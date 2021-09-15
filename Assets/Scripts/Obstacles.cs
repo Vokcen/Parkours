@@ -5,6 +5,9 @@ using UnityEngine;
 public class Obstacles : MonoBehaviour
 {
     Animator ani;
+    public ParticleSystem rocket;
+    public Vector3 roket;
+    
     void Start()
     {
         ani = GetComponent<Animator>();
@@ -22,8 +25,17 @@ public class Obstacles : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             ani.enabled = true;
+            StartCoroutine(WaitBefore());
+
 
         }
+    }
+    IEnumerator WaitBefore()
+    {
+        Instantiate(rocket, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.1f);
+        
+
     }
 }
 
