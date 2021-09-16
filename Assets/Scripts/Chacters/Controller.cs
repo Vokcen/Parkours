@@ -41,7 +41,7 @@ public class Controller : MonoBehaviour
             {
                 verticalvelocity = jumpforce;
                 ani.SetBool("Ledge", false);
-                ani.SetTrigger("jump");
+                ani.SetTrigger("Jump");
                
 
 
@@ -115,7 +115,7 @@ public class Controller : MonoBehaviour
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
              
                 WallSlide = false;
-                ani.SetBool("isJump", false);
+              
 
             }
 
