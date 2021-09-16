@@ -6,12 +6,13 @@ public class Obstacles : MonoBehaviour
 {
     Animator ani;
     public ParticleSystem rocket;
-    public Vector3 roket;
+    
     
     void Start()
     {
         ani = GetComponent<Animator>();
         ani.enabled = false;
+
 
     }
 
@@ -22,20 +23,31 @@ public class Obstacles : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))  
         {
             ani.enabled = true;
             StartCoroutine(WaitBefore());
+           
 
 
         }
+       
     }
+    
     IEnumerator WaitBefore()
     {
-        Instantiate(rocket, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.1f);
         
+        Instantiate(rocket, transform.position,transform.rotation);
+        yield return new WaitForSeconds(0.1f);
+    
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            StopCoroutine(WaitBefore());
 
+        }
     }
 }
 
