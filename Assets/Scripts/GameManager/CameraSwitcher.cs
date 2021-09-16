@@ -4,29 +4,48 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    public Camera cam1;
-    public Camera cam2;
-        
-        void Start()
-    {
-        
-    }
-    private void Update()
+
+    private Controller player;
+    public CameraFollow cam;
+    public Transform mainCam;
+    public Transform target;
+
+    void Start()
     {
 
+        player = GameObject.FindWithTag("Player").GetComponent<Controller>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+
+
+
     }
+    void Update()
+    {
+        // Rotate the camera every frame so it keeps looking at the target
+        transform.LookAt(target);
+
+        // Same as above, but setting the worldUp parameter to Vector3.left in this example turns the camera on its side
+        transform.LookAt(target, Vector3.left);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag=="Player")
+        if (other.gameObject.tag == "Player")
         {
             Debug.Log("jetstart.");
-            CamSwitch(); 
+            CamSwitch();
+
+
         }
     }
     void CamSwitch()
     {
-        cam1.enabled = false;
-        cam2.enabled = true;
+        player.speed = 0;
+        cam.Offset = new Vector3(-0.32f, 4.08f, -6.63f);
+        mainCam.transform.Rotate(0.0f, 90f, 0.0f);
+
+
     }
 }

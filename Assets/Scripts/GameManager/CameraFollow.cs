@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
+   
     public Transform target;
     public float smoothspeed = 0.125f;
     public Vector3 Offset;
@@ -16,4 +16,6 @@ public class CameraFollow : MonoBehaviour
         Vector3 SmoothPosition = Vector3.Lerp(transform.position, DesiredPosition, smoothspeed);
         transform.position = SmoothPosition;
     }
+
+ 
 }

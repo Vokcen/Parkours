@@ -18,14 +18,15 @@ public class Controller : MonoBehaviour
     private bool WallSlide;
     public  int dJump=2;
     public int currentJump = 0;
+
     
 
-
-    void Start()
+        void Start()
     {
         ani = GetComponent<Animator>();
         charcontrol = GetComponent<CharacterController>();
-        Move(); 
+        Move();
+
     }
 
     // Update is called once per frame

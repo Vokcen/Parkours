@@ -26,19 +26,20 @@ public class Obstacles : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))  
         {
             ani.enabled = true;
-            StartCoroutine(WaitBefore());
-           
+            Instantiate(rocket, transform.position, transform.rotation);
+            
 
 
         }
        
     }
-    
+   
     IEnumerator WaitBefore()
     {
         
-        Instantiate(rocket, transform.position,transform.rotation);
+     
         yield return new WaitForSeconds(0.1f);
+
     
     }
     private void OnTriggerExit(Collider other)
