@@ -19,6 +19,7 @@ TagManager:
   - CamSwitch
   - Jet
   - Jumper2
+  - Switcher
   layers:
   - Default
   - TransparentFX

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class RocketStarter : MonoBehaviour
 {
+    Controller p;
     Animator ani;
      void Start()
-    { 
-      
+    {
+        p = GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>();
         ani = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
     }
 
@@ -17,8 +18,9 @@ public class RocketStarter : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-           
-            
+
+            p.jumpforce = 60f;
+            p.gravity = 5;
             Debug.Log("jetstart.");
             //    director.enabled = true;
             ani.SetBool("Fly", true);
@@ -26,6 +28,7 @@ public class RocketStarter : MonoBehaviour
 }
 
         }
+    
     }
 
 
