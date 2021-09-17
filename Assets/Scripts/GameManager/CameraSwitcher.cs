@@ -6,27 +6,25 @@ public class CameraSwitcher : MonoBehaviour
 {
 
     private Controller player;
-    public CameraFollow cam;
-    public Transform mainCam;
-    public Transform target;
+     CameraFollow cam;
+     Transform mainCam;
+    Animator ani;
+    
 
+    float smooth =5f;
+    float tiltAngle = 60.0f;
     void Start()
     {
 
         player = GameObject.FindWithTag("Player").GetComponent<Controller>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-
-
+        ani = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Animator>();
 
     }
     void Update()
     {
-        // Rotate the camera every frame so it keeps looking at the target
-        transform.LookAt(target);
-
-        // Same as above, but setting the worldUp parameter to Vector3.left in this example turns the camera on its side
-        transform.LookAt(target, Vector3.left);
+      
     }
 
 
@@ -43,9 +41,15 @@ public class CameraSwitcher : MonoBehaviour
     void CamSwitch()
     {
         player.speed = 0;
-        cam.Offset = new Vector3(-0.32f, 4.08f, -6.63f);
-        mainCam.transform.Rotate(0.0f, 90f, 0.0f);
+        cam.Offset = new Vector3(0f, 4.08f, -7.3f);
 
+
+        float x = 0f * tiltAngle;
+        float y = 0f * tiltAngle;
+
+        Quaternion target = Quaternion.Euler(x, y, 0f);
+
+      mainCam.transform.rotation = Quaternion.Lerp(transform.rotation, target, Time.deltaTime * smooth);
 
     }
 }

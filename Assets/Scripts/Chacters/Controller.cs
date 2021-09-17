@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class Controller : MonoBehaviour
 
@@ -16,38 +17,47 @@ public class Controller : MonoBehaviour
 
     private Vector3 move;
     private bool WallSlide;
-    public  int dJump=2;
-    public int currentJump = 0;
 
+   // PlayableDirector director;
     
 
         void Start()
     {
         ani = GetComponent<Animator>();
         charcontrol = GetComponent<CharacterController>();
-        Move();
+     //   director = GetComponent<PlayableDirector>();
+       // director.enabled = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        Move();
+
+
+    }
+
+
+
+    void Move()
+    {
         move = Vector3.zero;
         move = transform.forward;
-        if(charcontrol.isGrounded)
+        if (charcontrol.isGrounded)
         {
             WallSlide = false;
             verticalvelocity = 0;
-            if ( Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 verticalvelocity = jumpforce;
                 ani.SetBool("Ledge", false);
                 ani.SetTrigger("Jump");
-               
+
 
 
             }
-          
+
         }
         if (!WallSlide)
         {
@@ -55,22 +65,14 @@ public class Controller : MonoBehaviour
         }
         else
         {
-            verticalvelocity -= gravity *0.4f* Time.deltaTime;
+            verticalvelocity -= gravity * 0.4f * Time.deltaTime;
         }
         ani.SetBool("WallSlide", WallSlide);
         ani.SetBool("Grounded", charcontrol.isGrounded);
         move *= speed;
         move.y = verticalvelocity;
-        charcontrol.Move(move*Time.deltaTime);
-        
- 
-    }
- 
-        
-    
-    void Move()
-    {
-        
+        charcontrol.Move(move * Time.deltaTime);
+
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -85,6 +87,7 @@ public class Controller : MonoBehaviour
             
                 break;
         }
+    
 
         if (hit.collider.tag=="Finish")
             {
@@ -96,10 +99,14 @@ public class Controller : MonoBehaviour
 
             
         }
+        if (hit.collider.tag=="CamSwitch")
+        {
+         //   director.enabled=true;
+        }
         if (hit.collider.tag=="Ledge")
         {
             ani.SetBool("Ledge", true);
-            Debug.Log("Týrmanmaya çalýþtý");
+    
         }
         if (hit.collider.tag=="wall")
         {
@@ -137,6 +144,7 @@ public class Controller : MonoBehaviour
             ski.SetActive(false);
 
         }
+      
     }
 
 

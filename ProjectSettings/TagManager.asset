@@ -5,6 +5,19 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Ground
+  - wall
+  - CheckPoint
+  - Wall
+  - Ledge
+  - SkiStart
+  - Jumper
+  - SkiEnd
+  - Obstacles
+  - Respawner
+  - Ski
+  - CamSwitch
+  - Jet
   layers:
   - Default
   - TransparentFX
