@@ -18,6 +18,7 @@ TagManager:
   - Ski
   - CamSwitch
   - Jet
+  - Jumper2
   layers:
   - Default
   - TransparentFX

@@ -14,11 +14,11 @@ public class CameraSwitcher : MonoBehaviour
     
   //  PlayableDirector director;
 
-    float smooth =5f;
-    float tiltAngle = 60.0f;
+   // float smooth =5f;
+    //float tiltAngle = 60.0f;
     void Start()
     {
-        cam2.enabled = false;
+       
       
        // director = GameObject.FindGameObjectWithTag("CamSwitch").GetComponent<PlayableDirector>();
         //player = GameObject.FindWithTag("Player").GetComponent<Controller>();
@@ -28,15 +28,23 @@ public class CameraSwitcher : MonoBehaviour
        // director.enabled = false;
 
     }
+    
     void Update()
     {
       
     }
 
 
-   
-    
-    void CamSwitch()
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            CamSwitch();
+
+        }
+    }
+        void CamSwitch()
     {
         /*    cam.Offset = new Vector3(0f, 4.08f, -7.3f);  // Camera Döndürme kodu,
 
@@ -51,4 +59,5 @@ public class CameraSwitcher : MonoBehaviour
         cam1.enabled = false;
         cam2.enabled = true;
     }
+    
 }

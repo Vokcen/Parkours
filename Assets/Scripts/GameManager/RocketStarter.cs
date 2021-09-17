@@ -1,31 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-un
 
-public class RocketStarter : CameraSwitcher
+
+public class RocketStarter : MonoBehaviour
 {
-   public  CameraSwitcher cam;
+    Animator ani;
      void Start()
     { 
-        cam=Game
-        
+      
+        ani = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+           
+            
             Debug.Log("jetstart.");
             //    director.enabled = true;
-            CamSwitch();
             ani.SetBool("Fly", true);
 
+}
 
         }
     }
+
+
