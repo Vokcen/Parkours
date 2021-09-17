@@ -82,12 +82,17 @@ public class Controller : MonoBehaviour
             case "Jumper":
                 jumpforce = 30f;            
                 break;
+      
+                ;
             case "Ground":
                 jumpforce = 10f;
             
                 break;
         }
-    
+        if (hit.collider.tag == "Jumper2")
+        {
+            jumpforce = 60f;
+        }
 
         if (hit.collider.tag=="Finish")
             {
