@@ -23,6 +23,7 @@ TagManager:
   - JetEnd
   - StaminaAdd
   - StaminaLose
+  - Death
   layers:
   - Default
   - TransparentFX

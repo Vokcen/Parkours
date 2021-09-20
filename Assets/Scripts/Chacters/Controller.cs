@@ -21,16 +21,21 @@ public class Controller : MonoBehaviour
     public float maxStamina = 100;
     public float currentStamina;
     public StaminaBar staminaBar;
+    public RespawnSystem rs;
+    //PlayerCheckPoint ck;
+   // public RespawnSystem rs;
 
     void Start()
     {
+        //rs = GameObject.FindGameObjectWithTag("Death").GetComponent<RespawnSystem>();
+       //ck = GetComponent<PlayerCheckPoint>();
         currentStamina = maxStamina;
         staminaBar.MaxStamina(maxStamina);
         ani = GetComponent<Animator>();
         charcontrol = GetComponent<CharacterController>();
         //   director = GetComponent<PlayableDirector>();
         // director.enabled = false;
-
+       
     }
 
     // Update is called once per frame
@@ -38,8 +43,15 @@ public class Controller : MonoBehaviour
     {
 
         Move();
-        lessStamina(5);
+        lessStamina(9);
 
+        if (currentStamina <= 0)
+        {
+            gameObject.transform.position = rs.checkpos;
+            currentStamina += 50;
+            
+            Debug.Log("Çalışıyor" + transform.position);
+        }
 
     }
 
@@ -171,7 +183,7 @@ public class Controller : MonoBehaviour
         currentStamina += take;
         staminaBar.SetStamina(currentStamina);
     }
-   public  void lessStamina(float less)
+     void lessStamina(float less)
     {
         currentStamina -= less * Time.deltaTime;
         staminaBar.SetStamina(currentStamina);

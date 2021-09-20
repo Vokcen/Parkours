@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class PlayerCheckPoint : MonoBehaviour
 {
-    public GameObject checker;
-    Vector3 spawnPoint;
-    public GameObject spawner;
-   
+    
+    int currentCheckPoint;
+    public RespawnSystem respawnSystem;
 
-    // Update is called once per frame
+
+
+     void Start()
+    {
+          
+    }
     void Update()
     {
         if (gameObject.transform.position.y<-20f)
         {
-            gameObject.transform.position = spawnPoint;
+            gameObject.transform.position = respawnSystem.checkpos;
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CheckPoint"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            spawnPoint = checker.transform.position;
-            Debug.Log("Checklendi");
+            respawnSystem.checkpos = other.transform.position;
+            Debug.Log(("CheckpointTest" + transform.position));
+          
         }
         if (other.gameObject.CompareTag("Respawner"))
         {
-            transform.position = spawner.transform.position;
+            
         }
     }
     }
