@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -10,30 +10,35 @@ public class Controller : MonoBehaviour
     public GameObject ski;
     public GameObject FinisPos;
     private Animator ani;
-    public float speed, gravity, jumpforce,verticalvelocity;
+    public float speed, gravity, jumpforce, verticalvelocity;
     private CharacterController charcontrol;
     private bool onGround;
-    
-
     private Vector3 move;
     private bool WallSlide;
 
-   // PlayableDirector director;
-    
+    // PlayableDirector director;
+    // Stamina Göstergeleri------------------------------------------
+    public float maxStamina = 100;
+    public float currentStamina;
+    public StaminaBar staminaBar;
 
-        void Start()
+    void Start()
     {
+        currentStamina = maxStamina;
+        staminaBar.MaxStamina(maxStamina);
         ani = GetComponent<Animator>();
         charcontrol = GetComponent<CharacterController>();
-     //   director = GetComponent<PlayableDirector>();
-       // director.enabled = false;
+        //   director = GetComponent<PlayableDirector>();
+        // director.enabled = false;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Move();
+        lessStamina(5);
 
 
     }
@@ -80,13 +85,13 @@ public class Controller : MonoBehaviour
         switch (hit.gameObject.tag)
         {
             case "Jumper":
-                jumpforce = 30f;            
+                jumpforce = 30f;
                 break;
-      
+
                 ;
             case "Ground":
                 jumpforce = 10f;
-            
+
                 break;
         }
         if (hit.collider.tag == "Jumper2")
@@ -94,46 +99,51 @@ public class Controller : MonoBehaviour
             jumpforce = 60f;
         }
 
-        if (hit.collider.tag=="Finish")
-            {
-
-            Debug.Log("de�di");
-                speed = 0;
-                transform.position = FinisPos.transform.position;
-                ani.SetBool("Finish", true);
-
-            
-        }
-        if (hit.collider.tag=="CamSwitch")
+        if (hit.collider.tag == "Finish")
         {
-         //   director.enabled=true;
+
+            Debug.Log("değdi");
+            speed = 0;
+            transform.position = FinisPos.transform.position;
+            ani.SetBool("Finish", true);
+
+
         }
-        if (hit.collider.tag=="Ledge")
+        if (hit.collider.tag == "CamSwitch")
+        {
+            //   director.enabled=true;
+        }
+        if (hit.collider.tag == "Ledge")
         {
             ani.SetBool("Ledge", true);
-    
+
         }
-        if (hit.collider.tag=="wall")
+        if (hit.collider.tag == "wall")
         {
-            
-            if (verticalvelocity<-1f)
+
+            if (verticalvelocity < -1f)
             {
 
                 WallSlide = true;
             }
-            if ( Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 verticalvelocity = jumpforce;
-                
+
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
-             
+
                 WallSlide = false;
-              
+
 
             }
 
         }
-      
+
+        if (hit.collider.tag == "StaminaLose")
+        {
+            lessStamina(30 * Time.deltaTime);
+            Debug.Log("StamineLoses");
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -141,7 +151,7 @@ public class Controller : MonoBehaviour
         {
             ani.SetBool("Ski", true);
             ski.SetActive(true);
-            
+
         }
         if (other.gameObject.tag == "SkiEnd")
         {
@@ -149,11 +159,22 @@ public class Controller : MonoBehaviour
             ski.SetActive(false);
 
         }
-      
+        if (other.gameObject.tag == "StaminaAdd")
+        {
+            takeStamina(10);
+            Debug.Log("StaminaAdded");
+        }
     }
 
-
-
-
+   public virtual void takeStamina(float take)
+    {
+        currentStamina += take;
+        staminaBar.SetStamina(currentStamina);
+    }
+   public  void lessStamina(float less)
+    {
+        currentStamina -= less * Time.deltaTime;
+        staminaBar.SetStamina(currentStamina);
+    }
 
 }

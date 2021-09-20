@@ -20,6 +20,9 @@ TagManager:
   - Jet
   - Jumper2
   - Switcher
+  - JetEnd
+  - StaminaAdd
+  - StaminaLose
   layers:
   - Default
   - TransparentFX
