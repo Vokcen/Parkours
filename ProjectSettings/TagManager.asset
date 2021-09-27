@@ -24,6 +24,8 @@ TagManager:
   - StaminaAdd
   - StaminaLose
   - Death
+  - StaminaMaxer
+  - Gold
   layers:
   - Default
   - TransparentFX

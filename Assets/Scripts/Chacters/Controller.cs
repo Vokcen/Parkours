@@ -7,6 +7,7 @@ using UnityEngine.Playables;
 public class Controller : MonoBehaviour
 
 {
+   public Player pl;
     public GameObject ski;
     public GameObject FinisPos;
     private Animator ani;
@@ -45,17 +46,24 @@ public class Controller : MonoBehaviour
         Move();
         lessStamina(9);
 
+        if (currentStamina >100)
+        {
+            Debug.Log("test");
+            currentStamina = 100;
+        }
+    
         if (currentStamina <= 0)
         {
             gameObject.transform.position = rs.checkpos;
             currentStamina += 50;
-            
+
+
             Debug.Log("Çalışıyor" + transform.position);
+           
         }
-
+      
+       
     }
-
-
 
     void Move()
     {
@@ -173,17 +181,27 @@ public class Controller : MonoBehaviour
         }
         if (other.gameObject.tag == "StaminaAdd")
         {
-            takeStamina(10);
+            takeStamina(40);
             Debug.Log("StaminaAdded");
         }
+        if (other.gameObject.tag == "StaminaMaxer") 
+        {
+            takeStamina(80);
+            Debug.Log("Staminmaxed");
+        }
+        if (other.gameObject.tag=="Gold")
+        {
+            pl.gold++;
+        }
     }
+       
 
    public virtual void takeStamina(float take)
     {
         currentStamina += take;
         staminaBar.SetStamina(currentStamina);
     }
-     void lessStamina(float less)
+   public  void lessStamina(float less)
     {
         currentStamina -= less * Time.deltaTime;
         staminaBar.SetStamina(currentStamina);
