@@ -110,8 +110,9 @@ public class Player : MonoBehaviour
         if (staminaSpeedPRice < gold)
         {
             gold -= staminaSpeedPRice;
-            staminaSpeedPRice *= 3;
-            cr.lessStamina(-1);
+            staminaSpeedPRice *= 2;
+            cr.lessStamina(-5);
+            Debug.Log("");
         }
     }
        public void OpenShopButton()

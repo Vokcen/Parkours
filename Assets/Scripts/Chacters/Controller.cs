@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
+using TMPro;
 
 public class Controller : MonoBehaviour
 
 {
-   public Player pl;
+    public Player pl;
     public GameObject ski;
     public GameObject FinisPos;
     private Animator ani;
@@ -23,35 +24,40 @@ public class Controller : MonoBehaviour
     public float currentStamina;
     public StaminaBar staminaBar;
     public RespawnSystem rs;
+    [SerializeField] TMP_Text staminaSpeed;
+    [SerializeField] TMP_Text maxStaminaText;
     //PlayerCheckPoint ck;
-   // public RespawnSystem rs;
+    // public RespawnSystem rs;
 
     void Start()
     {
+     
         //rs = GameObject.FindGameObjectWithTag("Death").GetComponent<RespawnSystem>();
-       //ck = GetComponent<PlayerCheckPoint>();
+        //ck = GetComponent<PlayerCheckPoint>();
         currentStamina = maxStamina;
         staminaBar.MaxStamina(maxStamina);
         ani = GetComponent<Animator>();
         charcontrol = GetComponent<CharacterController>();
         //   director = GetComponent<PlayableDirector>();
         // director.enabled = false;
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        StaminaSpeed();
+        StaminaText();
         Move();
         lessStamina(9);
 
-        if (currentStamina >100)
+
+        if (currentStamina > 100)
         {
             Debug.Log("test");
             currentStamina = 100;
         }
-    
+
         if (currentStamina <= 0)
         {
             gameObject.transform.position = rs.checkpos;
@@ -59,10 +65,10 @@ public class Controller : MonoBehaviour
 
 
             Debug.Log("Çalışıyor" + transform.position);
-           
+
         }
-      
-       
+
+
     }
 
     void Move()
@@ -184,27 +190,38 @@ public class Controller : MonoBehaviour
             takeStamina(40);
             Debug.Log("StaminaAdded");
         }
-        if (other.gameObject.tag == "StaminaMaxer") 
+        if (other.gameObject.tag == "StaminaMaxer")
         {
             takeStamina(80);
             Debug.Log("Staminmaxed");
         }
-        if (other.gameObject.tag=="Gold")
+        if (other.gameObject.tag == "Gold")
         {
             pl.gold++;
         }
     }
-       
 
-   public virtual void takeStamina(float take)
+
+    public virtual void takeStamina(float take)
     {
         currentStamina += take;
         staminaBar.SetStamina(currentStamina);
     }
-   public  void lessStamina(float less)
+    public void lessStamina(float less)
     {
         currentStamina -= less * Time.deltaTime;
         staminaBar.SetStamina(currentStamina);
+       
     }
+    public void StaminaText()
+    {
+        maxStaminaText.text = maxStamina.ToString();
+    }
+    public void StaminaSpeed()
+    {
+
+        staminaSpeed.text = currentStamina.ToString("0");
+    }
+
 
 }
